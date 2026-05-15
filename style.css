@@ -630,6 +630,43 @@ textarea {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.form-group select {
+  color: var(--white);
+  background-color: #161616;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23fafafa' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 1rem;
+}
+
+.form-group select option {
+  color: #0a0a0a;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+}
+
+.form-group select option:checked {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.form-group select:invalid,
+.form-group select option[value=""] {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.form-group select:has(option[value=""]:checked) {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.form-group select option[value=""] {
+  color: #666666;
+}
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
