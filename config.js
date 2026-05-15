@@ -4,5 +4,5 @@
  */
 window.SITE_CONFIG = {
   facebook: 'https://www.facebook.com/profile.php?id=61584714136561',
-  instagram: 'https://www.instagram.com/yourpage',
+  instagram: 'https://www.instagram.com/u.ambition_',
 };

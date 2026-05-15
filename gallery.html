@@ -1,38 +1,16 @@
 <!DOCTYPE html>
-<html lang="tl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery | Undying Ambition</title>
   <link rel="icon" href="assets/favicon.png" type="image/png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { black: '#0a0a0a', red: '#dc2626', white: '#fafafa' },
-          },
-          fontFamily: {
-            display: ['Bebas Neue', 'Impact', 'sans-serif'],
-            body: ['Oswald', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    .img-cover { object-fit: cover; }
-    .gallery-item { cursor: zoom-in; }
-    #lightbox { display: none; }
-    #lightbox.open { display: flex; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-brand-black text-brand-white font-body antialiased">
+<body>
   <header class="sticky top-0 z-50 border-b border-white/10 bg-brand-black/95 backdrop-blur">
     <nav class="max-w-6xl mx-auto px-3 sm:px-4 flex items-center justify-between h-14 sm:h-16 min-w-0">
       <a href="index.html#home" class="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
@@ -67,7 +45,7 @@
   <section class="py-16 border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 text-center">
       <h1 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-widest mb-4">GALLERY</h1>
-      <p class="text-white/70 max-w-xl mx-auto">No Rules Trilogy — lookbook, mockups, at lifestyle shots. ₱649 bawat tee.</p>
+      <p class="section__subtitle" style="margin-bottom: 0;">No Rules Trilogy — lookbook, mockups, and lifestyle shots. ₱649 per tee.</p>
     </div>
   </section>
 
@@ -92,8 +70,8 @@
         <button type="button" class="gallery-item aspect-square border border-white/10 overflow-hidden rounded-lg" data-src="assets/low-rider-mockup.png" data-caption="LOW RIDER TEE — mockup">
           <img src="assets/low-rider-mockup.png" alt="Low Rider Tee mockup" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
         </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg sm:col-span-2 md:col-span-1" data-src="assets/gallery-horsemen-lowrider.png" data-caption="LOW RIDER TEE — lifestyle">
-          <img src="assets/gallery-horsemen-lowrider.png" alt="Low Rider lifestyle" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg sm:col-span-2 md:col-span-1" data-src="assets/gallery-three-tees.png" data-caption="LOW RIDER TEE — lifestyle">
+          <img src="assets/gallery-three-tees.png" alt="Low Rider Tee lifestyle" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
         </button>
       </div>
 
@@ -144,6 +122,24 @@
         <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-van.png" data-caption="BUBBLEGUM TEE — lifestyle">
           <img src="assets/gallery-bubblegum-van.png" alt="Bubblegum tee with van" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
         </button>
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-selfie.png" data-caption="BUBBLEGUM TEE — lifestyle">
+          <img src="assets/gallery-bubblegum-selfie.png" alt="Bubblegum tee selfie" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
+        </button>
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-cap-front.png" data-caption="BUBBLEGUM TEE — lifestyle">
+          <img src="assets/gallery-bubblegum-cap-front.png" alt="Bubblegum tee with cap" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
+        </button>
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-street-full.png" data-caption="BUBBLEGUM TEE — lifestyle">
+          <img src="assets/gallery-bubblegum-street-full.png" alt="Bubblegum tee street style" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
+        </button>
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-beach-back.png" data-caption="BUBBLEGUM TEE — back print">
+          <img src="assets/gallery-bubblegum-beach-back.png" alt="Bubblegum tee beach back" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
+        </button>
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-night-street.png" data-caption="BUBBLEGUM TEE — back print">
+          <img src="assets/gallery-bubblegum-night-street.png" alt="Bubblegum tee night street" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
+        </button>
+        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-beach-hat.png" data-caption="BUBBLEGUM TEE — back print">
+          <img src="assets/gallery-bubblegum-beach-hat.png" alt="Bubblegum tee beach hat" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
+        </button>
       </div>
 
       <h2 class="font-display text-3xl tracking-widest mb-6">SIZE GUIDE</h2>
@@ -154,11 +150,10 @@
   </section>
 
   <section class="py-12 border-t border-white/10 text-center px-4">
-    <p class="text-white/80 mb-1">Ready to order?</p>
-    <p class="text-white/50 text-sm mb-6">Handa ka na bang mag-order?</p>
-    <div class="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-md sm:max-w-none mx-auto">
-      <a href="index.html#shop" class="inline-block px-8 py-3 border-2 border-brand-red text-brand-red font-semibold hover:bg-brand-red hover:text-white transition">SHOP</a>
-      <a id="order-via-fb" href="https://www.facebook.com/profile.php?id=61584714136561" target="_blank" rel="noopener" class="inline-block px-4 sm:px-8 py-3 bg-brand-red text-white text-sm sm:text-base font-semibold hover:opacity-90 transition">Order on Facebook · Mag-order sa Facebook</a>
+    <p class="section__subtitle" style="margin-bottom: 1.25rem;">Ready to order?</p>
+    <div class="social-row">
+      <a href="index.html#shop" class="btn btn--outline">Shop</a>
+      <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Facebook</a>
     </div>
   </section>
 
@@ -166,8 +161,8 @@
     <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
       <span class="font-display tracking-widest">UNDYING AMBITION</span>
       <div class="flex gap-6">
-        <a id="footer-fb" href="https://www.facebook.com/" target="_blank" rel="noopener" class="text-white/70 hover:text-brand-red transition">Facebook</a>
-        <a id="footer-ig" href="https://www.instagram.com/" target="_blank" rel="noopener" class="text-white/70 hover:text-brand-red transition">Instagram</a>
+        <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
       </div>
       <span class="text-white/50 text-sm">© All rights reserved 2026</span>
     </div>
@@ -179,7 +174,6 @@
     <p id="lightbox-caption" class="absolute bottom-6 left-0 right-0 text-center text-white/80 tracking-wider"></p>
   </div>
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

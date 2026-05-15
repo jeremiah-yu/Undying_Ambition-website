@@ -1,196 +1,190 @@
 <!DOCTYPE html>
-<html lang="tl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undying Ambition | Streetwear</title>
   <link rel="icon" href="assets/favicon.png" type="image/png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { black: '#0a0a0a', red: '#dc2626', white: '#fafafa' },
-          },
-          fontFamily: {
-            display: ['Bebas Neue', 'Impact', 'sans-serif'],
-            body: ['Oswald', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    [x-cloak] { display: none !important; }
-    .img-cover { object-fit: cover; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-brand-black text-brand-white font-body antialiased">
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-brand-black/95 backdrop-blur">
-    <nav class="max-w-6xl mx-auto px-3 sm:px-4 flex items-center justify-between h-14 sm:h-16 min-w-0">
-      <a href="index.html#home" class="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
-        <img src="assets/logo.png" alt="UA — Undying Ambition" class="h-9 w-9 sm:h-10 sm:w-10 object-contain flex-shrink-0 rounded-full" />
-        <span class="font-display text-lg sm:text-2xl tracking-wider sm:tracking-widest truncate">
-          <span class="sm:hidden">UA</span>
-          <span class="hidden sm:inline">UNDYING AMBITION</span>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#home" class="brand">
+        <img src="assets/logo.png" alt="UA — Undying Ambition" class="brand__logo" width="40" height="40" />
+        <span class="brand__name">
+          <span class="brand__name-short">UA</span>
+          <span class="brand__name-full">UNDYING AMBITION</span>
         </span>
       </a>
-      <ul class="hidden md:flex gap-8">
-        <li><a href="index.html#home" class="hover:text-brand-red transition">Home</a></li>
-        <li><a href="index.html#shop" class="hover:text-brand-red transition">Shop</a></li>
-        <li><a href="gallery.html" class="hover:text-brand-red transition">Gallery</a></li>
-        <li><a href="index.html#about" class="hover:text-brand-red transition">About</a></li>
-        <li><a href="index.html#order" class="hover:text-brand-red transition">Order</a></li>
+      <ul class="nav__links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#order">Order</a></li>
       </ul>
-      <button id="menu-btn" class="md:hidden p-2" aria-label="Menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button type="button" id="menu-btn" class="menu-btn" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
     </nav>
-    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 bg-brand-black">
-      <ul class="px-4 py-4 space-y-3">
-        <li><a href="index.html#home" class="block py-2">Home</a></li>
-        <li><a href="index.html#shop" class="block py-2">Shop</a></li>
-        <li><a href="gallery.html" class="block py-2">Gallery</a></li>
-        <li><a href="index.html#about" class="block py-2">About</a></li>
-        <li><a href="index.html#order" class="block py-2">Order</a></li>
+    <div id="mobile-menu" class="mobile-menu">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#order">Order</a></li>
       </ul>
     </div>
   </header>
 
-  <section id="home" class="relative min-h-[75vh] sm:min-h-[85vh] flex items-center justify-center overflow-hidden px-3">
-    <img src="assets/no-rules-trilogy.png" alt="No Rules Trilogy" class="absolute inset-0 w-full h-full img-cover opacity-30" />
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-black/80 to-brand-black"></div>
-    <div class="relative z-10 text-center px-2 sm:px-4 max-w-3xl mx-auto">
-      <img src="assets/logo.png" alt="UA Logo" class="mx-auto h-20 sm:h-28 md:h-36 w-auto max-w-[min(100%,16rem)] object-contain mb-4 sm:mb-6 rounded-lg" />
-      <h1 class="font-display text-3xl sm:text-5xl md:text-7xl tracking-[0.12em] sm:tracking-[0.2em] md:tracking-[0.3em] mb-3 sm:mb-4 leading-tight">UNDYING AMBITION</h1>
-      <p class="text-base sm:text-lg md:text-xl text-white/80 max-w-xl mx-auto mb-2 px-1">No Rules Trilogy — streetwear born from rebellion.</p>
-      <p class="text-sm sm:text-base text-white/60 max-w-lg mx-auto mb-6 sm:mb-8 px-1">Three pieces. No explanation needed.</p>
-      <a href="#shop" class="inline-block w-full sm:w-auto max-w-xs sm:max-w-none mx-auto px-6 sm:px-8 py-3 border-2 border-brand-red text-brand-red font-semibold hover:bg-brand-red hover:text-white transition text-center">SHOP NOW</a>
-    </div>
-  </section>
-
-  <section class="py-8 border-y border-white/10 bg-black/50">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <p class="text-white/70 mb-4">Follow us & stay updated</p>
-      <div class="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-6 max-w-md sm:max-w-none mx-auto">
-        <a id="btn-fb" href="https://www.facebook.com/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#1877f2] text-white rounded-lg hover:opacity-90 transition w-full sm:w-auto">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          <span>Facebook</span>
-        </a>
-        <a id="btn-ig" href="https://www.instagram.com/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-br from-[#f09433] via-[#dc2626] to-[#833ab4] text-white rounded-lg hover:opacity-90 transition w-full sm:w-auto">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.218 4.771 1.401 5.907 3.746 1.136 2.35 1.905 5.541 1.905 9.021 0 3.475-.769 6.671-1.905 9.021-1.136 2.345-2.655 3.528-5.907 3.746-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.218-4.771-1.401-5.907-3.746-1.136-2.35-1.905-5.542-1.905-9.021 0-3.475.769-6.671 1.905-9.021 1.136-2.345 2.655-3.528 5.907-3.746 1.266-.058 1.644-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.273 7.047 0 11.21 0 11.617 0 12c0 .383.014.784.072 1.948.2 4.358 2.618 6.78 6.98 6.98C8.333 20.986 8.741 21 12 21c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.164.073-1.565.073-1.948 0-.383-.014-.79-.072-1.953-.197-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0z"/><path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8z"/><path d="M18.406 7.034a1.44 1.44 0 100 2.882 1.44 1.44 0 000-2.882z"/></svg>
-          <span>Instagram</span>
-        </a>
+  <main>
+    <section id="home" class="hero">
+      <video
+        id="hero-video"
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src="assets/202605152114.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__content">
+        <img src="assets/logo.png" alt="UA Logo" class="hero__logo" width="200" height="200" />
+        <h1 class="hero__title">UNDYING AMBITION</h1>
+        <p class="hero__subtitle">No Rules Trilogy — streetwear born from rebellion.</p>
+        <p class="hero__tagline">Three pieces. No explanation needed.</p>
+        <a href="#shop" class="btn btn--outline">Shop Now</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="shop" class="py-20">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="font-display text-4xl md:text-5xl tracking-widest text-center mb-4">SHOP</h2>
-      <p class="text-center text-white/60 mb-12">No Rules Trilogy — ₱649 each</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <article class="group border border-white/10 overflow-hidden hover:border-brand-red/50 transition">
-          <div class="aspect-square bg-white/5 relative overflow-hidden">
-            <img src="assets/low-rider-mockup.png" alt="Low Rider Tee" class="w-full h-full img-cover group-hover:scale-105 transition duration-500" />
-          </div>
-          <div class="p-4">
-            <h3 class="font-display text-xl tracking-wider mb-1">LOW RIDER TEE</h3>
-            <p class="text-white/70 text-sm mb-3">Black tee, lowrider graphic</p>
-            <p class="text-brand-red font-semibold mb-3">₱649</p>
-            <button type="button" class="w-full py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition add-to-order" data-name="LOW RIDER TEE" data-price="649">Order</button>
-          </div>
-        </article>
-        <article class="group border border-white/10 overflow-hidden hover:border-brand-red/50 transition">
-          <div class="aspect-square bg-white/5 relative overflow-hidden">
-            <img src="assets/horsemen-mockup.png" alt="Horsemen Tee" class="w-full h-full img-cover group-hover:scale-105 transition duration-500" />
-          </div>
-          <div class="p-4">
-            <h3 class="font-display text-xl tracking-wider mb-1">HORSEMEN TEE</h3>
-            <p class="text-white/70 text-sm mb-3">Black tee, horsemen graphic</p>
-            <p class="text-brand-red font-semibold mb-3">₱649</p>
-            <button type="button" class="w-full py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition add-to-order" data-name="HORSEMEN TEE" data-price="649">Order</button>
-          </div>
-        </article>
-        <article class="group border border-white/10 overflow-hidden hover:border-brand-red/50 transition w-full">
-          <div class="aspect-square bg-white/5 relative overflow-hidden">
-            <img src="assets/bubblegum-mockup.png" alt="Bubblegum Tee" class="w-full h-full img-cover group-hover:scale-105 transition duration-500" />
-          </div>
-          <div class="p-4">
-            <h3 class="font-display text-xl tracking-wider mb-1">BUBBLEGUM TEE</h3>
-            <p class="text-white/70 text-sm mb-3">White tee, pink UA logo</p>
-            <p class="text-brand-red font-semibold mb-3">₱649</p>
-            <button type="button" class="w-full py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition add-to-order" data-name="BUBBLEGUM TEE" data-price="649">Order</button>
-          </div>
-        </article>
-      </div>
-      <p class="text-center mt-10">
-        <a href="gallery.html" class="text-brand-red hover:underline tracking-wider">View full gallery →</a>
-      </p>
-    </div>
-  </section>
-
-  <section id="about" class="py-20 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col lg:flex-row gap-12 items-center">
-      <div class="flex-1">
-        <img src="assets/gallery-horsemen-group.png" alt="Undying Ambition Community" class="w-full rounded-lg border border-white/10 img-cover max-h-[500px] object-top" />
-      </div>
-      <div class="flex-1">
-        <h2 class="font-display text-4xl tracking-widest mb-6">ABOUT US</h2>
-        <p class="text-white/80 mb-4">No rules to follow. No standards to meet. Just three pieces born from rebellion, made to be worn without explanation.</p>
-        <p class="text-white/80 mb-4">To everyone who supports Undying Ambition, thank you for trusting the quality, the message, and the purpose behind every design.</p>
-        <p class="text-white/50 text-sm mt-6">© All rights reserved 2026</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="order" class="py-20 border-t border-white/10">
-    <div class="max-w-2xl mx-auto px-4 text-center">
-      <h2 class="font-display text-3xl sm:text-4xl tracking-widest mb-2">ORDER ONLINE</h2>
-      <p class="text-white/50 text-sm tracking-widest mb-6">MAG-ORDER ONLINE</p>
-      <p class="text-white/80 mb-3">Message us on our Facebook page to place your order. Chat with us there for details, payment, and delivery.</p>
-      <p class="text-white/60 text-sm mb-8">Mag-message sa aming Facebook page para makapag-order. I-chat kami doon para sa details, payment, at delivery.</p>
-      <a id="order-via-fb" href="https://www.facebook.com/profile.php?id=61584714136561" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-8 py-3 bg-brand-red text-white text-sm sm:text-base font-semibold hover:opacity-90 transition text-center">
-        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        <span>Order on Facebook · Mag-order sa Facebook</span>
-      </a>
-    </div>
-  </section>
-
-  <div id="order-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
-    <div class="absolute inset-0 bg-black/80" id="modal-backdrop"></div>
-    <div class="absolute inset-0 flex items-center justify-center p-4">
-      <div class="bg-brand-black border border-white/20 rounded-lg max-w-md w-full shadow-2xl">
-        <div class="p-6">
-          <h3 class="font-display text-2xl tracking-wider mb-3">Order · Mag-order</h3>
-          <p id="order-modal-product" class="text-white/80 mb-4 text-sm leading-relaxed">To place your order, message us on our Facebook page.<br /><span class="text-white/60">Para makapag-order, mag-message sa aming Facebook page.</span></p>
-          <div class="flex flex-col-reverse sm:flex-row gap-3">
-            <a id="order-modal-fb-btn" href="https://www.facebook.com/profile.php?id=61584714136561" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 py-3 bg-[#1877f2] text-white font-semibold hover:opacity-90 transition text-sm text-center">Open Facebook · Bukas sa FB</a>
-            <button type="button" id="close-modal-btn" class="px-4 py-3 border border-white/20 hover:bg-white/5 transition sm:shrink-0">Close</button>
-          </div>
+    <section class="section" aria-label="Social links">
+      <div class="container text-center">
+        <p class="section__subtitle" style="margin-bottom: 1.25rem;">Follow us &amp; stay updated</p>
+        <div class="social-row">
+          <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--fb">Facebook</a>
+          <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Instagram</a>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <footer class="py-8 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-      <span class="font-display tracking-widest">UNDYING AMBITION</span>
-      <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-        <a id="footer-fb" href="https://www.facebook.com/" target="_blank" rel="noopener" class="text-white/70 hover:text-brand-red transition">Facebook</a>
-        <a id="footer-ig" href="https://www.instagram.com/" target="_blank" rel="noopener" class="text-white/70 hover:text-brand-red transition">Instagram</a>
-        <a href="gallery.html" class="text-white/70 hover:text-brand-red transition">Gallery</a>
+    <section id="shop" class="section section--border">
+      <div class="container">
+        <h2 class="section__title">Shop</h2>
+        <p class="section__subtitle">No Rules Trilogy — ₱649 each</p>
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-card__media">
+              <img src="assets/low-rider-mockup.png" alt="Low Rider Tee mockup" width="600" height="600" loading="lazy" />
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Low Rider Tee</h3>
+              <p class="product-card__desc">Black tee, lowrider graphic</p>
+              <p class="product-card__price">₱649</p>
+              <button type="button" class="btn btn--outline btn--block" data-order-product="LOW RIDER TEE">Order</button>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-card__media">
+              <img src="assets/horsemen-mockup.png" alt="Horsemen Tee mockup" width="600" height="600" loading="lazy" />
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Horsemen Tee</h3>
+              <p class="product-card__desc">Black tee, horsemen graphic</p>
+              <p class="product-card__price">₱649</p>
+              <button type="button" class="btn btn--outline btn--block" data-order-product="HORSEMEN TEE">Order</button>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-card__media">
+              <img src="assets/bubblegum-mockup.png" alt="Bubblegum Tee mockup" width="600" height="600" loading="lazy" />
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Bubblegum Tee</h3>
+              <p class="product-card__desc">White tee, pink UA logo</p>
+              <p class="product-card__price">₱649</p>
+              <button type="button" class="btn btn--outline btn--block" data-order-product="BUBBLEGUM TEE">Order</button>
+            </div>
+          </article>
+        </div>
+        <p class="text-center">
+          <a href="gallery.html" class="text-link">View full gallery →</a>
+        </p>
       </div>
-      <span class="text-white/50 text-sm">© All rights reserved 2026</span>
+    </section>
+
+    <section id="about" class="section section--border">
+      <div class="container about-grid">
+        <img src="assets/gallery-horsemen-group.png" alt="Undying Ambition community" width="800" height="600" loading="lazy" />
+        <div>
+          <h2 class="section__title" style="text-align: left; margin-bottom: 1.5rem;">About Us</h2>
+          <p>No rules to follow. No standards to meet. Just three pieces born from rebellion, made to be worn without explanation.</p>
+          <p>To everyone who supports Undying Ambition, thank you for trusting the quality, the message, and the purpose behind every design.</p>
+          <p class="footer-copy" style="margin-top: 1.5rem;">© All rights reserved 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="order" class="section section--border">
+      <div class="container text-center" style="max-width: 36rem;">
+        <h2 class="section__title">Order Online</h2>
+        <p class="section__subtitle">Select a product, choose your size, and send your order via Facebook Messenger.</p>
+        <a href="#shop" class="btn btn--primary">Browse Products</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="section__title" style="font-size: 1.25rem; margin: 0;">Undying Ambition</span>
+      <div class="footer-links">
+        <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <span class="footer-copy">© All rights reserved 2026</span>
     </div>
   </footer>
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <div id="order-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="order-modal-title">
+    <div class="modal__backdrop" id="modal-backdrop"></div>
+    <div class="modal__panel">
+      <h2 id="order-modal-title" class="modal__title">Place Order</h2>
+      <p id="order-product-label" class="modal__product">Product</p>
+      <form id="order-form" novalidate>
+        <p id="order-error" class="form-error" role="alert"></p>
+        <div class="form-group">
+          <label for="order-size">Size</label>
+          <select id="order-size" name="size" required>
+            <option value="">Select size</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="order-name">Full Name</label>
+          <input type="text" id="order-name" name="name" placeholder="Your full name" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="order-address">Delivery Address</label>
+          <textarea id="order-address" name="address" placeholder="Street, city, province, ZIP code" required rows="3"></textarea>
+        </div>
+        <div class="modal__actions">
+          <button type="button" id="close-modal-btn" class="btn btn--ghost">Cancel</button>
+          <button type="submit" class="btn btn--primary">Place Order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
