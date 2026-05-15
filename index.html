@@ -186,28 +186,9 @@
           <button type="submit" class="btn btn--primary">Place Order</button>
         </div>
       </form>
-      </div>
-
-      <div id="order-send-step" class="order-send-step" hidden>
-        <p class="order-send-step__title">Almost done</p>
-        <p id="order-send-notice" class="order-send-step__notice form-error" role="status"></p>
-        <p class="order-send-step__hint">
-          Your order was copied. Open Messenger, tap the message box, tap <strong>Paste</strong>, then tap <strong>Send</strong>.
-        </p>
-        <label class="order-send-step__label" for="order-message-preview">Your order message</label>
-        <textarea id="order-message-preview" class="order-send-step__preview" readonly rows="7"></textarea>
-        <div class="order-send-step__actions">
-          <a id="messenger-open-btn" class="btn btn--primary" href="https://m.me/61584714136561" rel="noopener noreferrer">Open Messenger</a>
-          <button type="button" id="order-copy-again-btn" class="btn btn--ghost">Copy again</button>
-          <button type="button" id="order-send-back-btn" class="btn btn--ghost">Edit order</button>
-        </div>
-      </div>
+      <a id="messenger-redirect-link" class="visually-hidden" href="#" rel="noopener noreferrer" aria-hidden="true">Messenger</a>
     </div>
   </div>
-
-  <form id="messenger-send-form" class="visually-hidden" action="https://m.me/61584714136561" method="get" target="_self" aria-hidden="true">
-    <input type="hidden" name="text" id="messenger-prefill-text" value="" />
-  </form>
 
   <script src="script.js"></script>
 </body>
