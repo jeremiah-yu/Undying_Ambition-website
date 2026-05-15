@@ -11,167 +11,193 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-brand-black/95 backdrop-blur">
-    <nav class="max-w-6xl mx-auto px-3 sm:px-4 flex items-center justify-between h-14 sm:h-16 min-w-0">
-      <a href="index.html#home" class="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
-        <img src="assets/logo.png" alt="UA — Undying Ambition" class="h-9 w-9 sm:h-10 sm:w-10 object-contain flex-shrink-0 rounded-full" />
-        <span class="font-display text-lg sm:text-2xl tracking-wider sm:tracking-widest truncate">
-          <span class="sm:hidden">UA</span>
-          <span class="hidden sm:inline">UNDYING AMBITION</span>
+  <header class="site-header" id="site-header">
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#home" class="brand">
+        <img src="assets/logo.png" alt="UA — Undying Ambition" class="brand__logo" width="46" height="46" />
+        <span class="brand__name">
+          <span class="brand__name-short">UA</span>
+          <span class="brand__name-full">UNDYING AMBITION</span>
         </span>
       </a>
-      <ul class="hidden md:flex gap-8">
-        <li><a href="index.html#home" class="hover:text-brand-red transition">Home</a></li>
-        <li><a href="index.html#shop" class="hover:text-brand-red transition">Shop</a></li>
-        <li><a href="gallery.html" class="text-brand-red">Gallery</a></li>
-        <li><a href="index.html#about" class="hover:text-brand-red transition">About</a></li>
-        <li><a href="index.html#order" class="hover:text-brand-red transition">Order</a></li>
+      <ul class="nav__links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="gallery.html" class="is-active">Gallery</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#order">Order</a></li>
       </ul>
-      <button id="menu-btn" class="md:hidden p-2" aria-label="Menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button type="button" id="menu-btn" class="menu-btn" aria-label="Open menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
     </nav>
-    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 bg-brand-black">
-      <ul class="px-4 py-4 space-y-3">
-        <li><a href="index.html#home" class="block py-2">Home</a></li>
-        <li><a href="index.html#shop" class="block py-2">Shop</a></li>
-        <li><a href="gallery.html" class="block py-2 text-brand-red">Gallery</a></li>
-        <li><a href="index.html#about" class="block py-2">About</a></li>
-        <li><a href="index.html#order" class="block py-2">Order</a></li>
+    <div id="mobile-menu" class="mobile-menu">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="gallery.html" class="is-active">Gallery</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#order">Order</a></li>
       </ul>
     </div>
   </header>
 
-  <section class="py-16 border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-widest mb-4">GALLERY</h1>
-      <p class="section__subtitle" style="margin-bottom: 0;">No Rules Trilogy — lookbook, mockups, and lifestyle shots. ₱649 per tee.</p>
-    </div>
-  </section>
-
-  <section class="py-12">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="font-display text-3xl tracking-widest mb-6 text-brand-red">NO RULES TRILOGY</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-        <button type="button" class="gallery-item border border-white/10 overflow-hidden rounded-lg text-left" data-src="assets/no-rules-trilogy-poster.png" data-caption="NO RULES TRILOGY — poster">
-          <img src="assets/no-rules-trilogy-poster.png" alt="No Rules Trilogy official poster" class="w-full h-auto" />
-        </button>
-        <button type="button" class="gallery-item border border-white/10 overflow-hidden rounded-lg text-left" data-src="assets/no-rules-trilogy.png" data-caption="NO RULES TRILOGY">
-          <img src="assets/no-rules-trilogy.png" alt="No Rules Trilogy" class="w-full h-64 md:h-full img-cover" />
-        </button>
-        <button type="button" class="gallery-item border border-white/10 overflow-hidden rounded-lg text-left" data-src="assets/gallery-three-tees.png" data-caption="NO RULES TRILOGY — all three tees">
-          <img src="assets/gallery-three-tees.png" alt="All three tees" class="w-full h-64 md:h-full img-cover" />
-        </button>
+  <main>
+    <section class="gallery-hero">
+      <div class="container">
+        <h1 class="section__title">Gallery</h1>
+        <p class="section__subtitle" style="margin-bottom: 0;">No Rules Trilogy — lookbook, mockups, and lifestyle shots.</p>
       </div>
+    </section>
 
-      <h2 class="font-display text-3xl tracking-widest mb-2">LOW RIDER TEE</h2>
-      <p class="text-white/60 text-sm mb-6">₱649</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16">
-        <button type="button" class="gallery-item aspect-square border border-white/10 overflow-hidden rounded-lg" data-src="assets/low-rider-mockup.png" data-caption="LOW RIDER TEE — mockup">
-          <img src="assets/low-rider-mockup.png" alt="Low Rider Tee mockup" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg sm:col-span-2 md:col-span-1" data-src="assets/gallery-three-tees.png" data-caption="LOW RIDER TEE — lifestyle">
-          <img src="assets/gallery-three-tees.png" alt="Low Rider Tee lifestyle" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
+    <section class="gallery-page">
+      <div class="container">
+        <div class="gallery-block">
+          <div class="gallery-block__head">
+            <h2 class="gallery-block__title gallery-block__title--accent">No Rules Trilogy</h2>
+          </div>
+          <div class="gallery-grid gallery-grid--wide">
+            <button type="button" class="gallery-item gallery-item--poster" data-src="assets/no-rules-trilogy-poster.png" data-caption="NO RULES TRILOGY — poster">
+              <img src="assets/no-rules-trilogy-poster.png" alt="No Rules Trilogy poster" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item gallery-item--landscape" data-src="assets/no-rules-trilogy.png" data-caption="NO RULES TRILOGY">
+              <img src="assets/no-rules-trilogy.png" alt="No Rules Trilogy" loading="lazy" />
+            </button>
+          </div>
+        </div>
+
+        <div class="gallery-block">
+          <div class="gallery-block__head">
+            <h2 class="gallery-block__title">Low Rider Tee</h2>
+            <p class="gallery-block__price">₱649</p>
+          </div>
+          <div class="gallery-grid">
+            <button type="button" class="gallery-item gallery-item--square" data-src="assets/low-rider-mockup.png" data-caption="LOW RIDER TEE — mockup">
+              <img src="assets/low-rider-mockup.png" alt="Low Rider Tee mockup" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-three-tees.png" data-caption="LOW RIDER TEE — lifestyle">
+              <img src="assets/gallery-three-tees.png" alt="Low Rider Tee lifestyle" loading="lazy" />
+            </button>
+          </div>
+        </div>
+
+        <div class="gallery-block">
+          <div class="gallery-block__head">
+            <h2 class="gallery-block__title">Horsemen Tee</h2>
+            <p class="gallery-block__price">₱649</p>
+          </div>
+          <div class="gallery-grid">
+            <button type="button" class="gallery-item gallery-item--square" data-src="assets/horsemen-mockup.png" data-caption="HORSEMEN TEE — mockup">
+              <img src="assets/horsemen-mockup.png" alt="Horsemen Tee mockup" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-horsemen-group.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-horsemen-group.png" alt="Horsemen group" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-horsemen-trio.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-horsemen-trio.png" alt="Horsemen trio" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-horsemen-crouch.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-horsemen-crouch.png" alt="Horsemen crouch" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-horsemen-graffiti.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-horsemen-graffiti.png" alt="Horsemen graffiti" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-horsemen-stance.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-horsemen-stance.png" alt="Horsemen stance" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-rules-back.png" data-caption="HORSEMEN TEE — back print">
+              <img src="assets/gallery-rules-back.png" alt="Rules back print" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-stairs-back.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-stairs-back.png" alt="Stairs back" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-stairs-front.png" data-caption="HORSEMEN TEE">
+              <img src="assets/gallery-stairs-front.png" alt="Stairs front" loading="lazy" />
+            </button>
+          </div>
+        </div>
+
+        <div class="gallery-block">
+          <div class="gallery-block__head">
+            <h2 class="gallery-block__title">Bubblegum Tee</h2>
+            <p class="gallery-block__price">₱649</p>
+          </div>
+          <div class="gallery-grid">
+            <button type="button" class="gallery-item gallery-item--square" data-src="assets/bubblegum-mockup.png" data-caption="BUBBLEGUM TEE — mockup">
+              <img src="assets/bubblegum-mockup.png" alt="Bubblegum Tee mockup" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum.png" data-caption="BUBBLEGUM TEE">
+              <img src="assets/gallery-bubblegum.png" alt="Bubblegum lifestyle" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-night.png" data-caption="BUBBLEGUM TEE">
+              <img src="assets/gallery-bubblegum-night.png" alt="Bubblegum night" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-van.png" data-caption="BUBBLEGUM TEE">
+              <img src="assets/gallery-bubblegum-van.png" alt="Bubblegum van" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-selfie.png" data-caption="BUBBLEGUM TEE">
+              <img src="assets/gallery-bubblegum-selfie.png" alt="Bubblegum selfie" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-cap-front.png" data-caption="BUBBLEGUM TEE">
+              <img src="assets/gallery-bubblegum-cap-front.png" alt="Bubblegum cap" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-street-full.png" data-caption="BUBBLEGUM TEE">
+              <img src="assets/gallery-bubblegum-street-full.png" alt="Bubblegum street" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-beach-back.png" data-caption="BUBBLEGUM TEE — back">
+              <img src="assets/gallery-bubblegum-beach-back.png" alt="Bubblegum beach back" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-night-street.png" data-caption="BUBBLEGUM TEE — back">
+              <img src="assets/gallery-bubblegum-night-street.png" alt="Bubblegum night street" loading="lazy" />
+            </button>
+            <button type="button" class="gallery-item" data-src="assets/gallery-bubblegum-beach-hat.png" data-caption="BUBBLEGUM TEE — back">
+              <img src="assets/gallery-bubblegum-beach-hat.png" alt="Bubblegum beach hat" loading="lazy" />
+            </button>
+          </div>
+        </div>
+
+        <div class="gallery-block">
+          <div class="gallery-block__head">
+            <h2 class="gallery-block__title">Size Guide</h2>
+          </div>
+          <div class="gallery-size-guide">
+            <button type="button" class="gallery-item" data-src="assets/size-guide.png" data-caption="Official Size Guide">
+              <img src="assets/size-guide.png" alt="Size guide" loading="lazy" />
+            </button>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <h2 class="font-display text-3xl tracking-widest mb-2">HORSEMEN TEE</h2>
-      <p class="text-white/60 text-sm mb-6">₱649</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16">
-        <button type="button" class="gallery-item aspect-square border border-white/10 overflow-hidden rounded-lg" data-src="assets/horsemen-mockup.png" data-caption="HORSEMEN TEE — mockup">
-          <img src="assets/horsemen-mockup.png" alt="Horsemen Tee mockup" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-horsemen-group.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-horsemen-group.png" alt="Horsemen group" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-horsemen-trio.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-horsemen-trio.png" alt="Horsemen trio" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-horsemen-crouch.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-horsemen-crouch.png" alt="Horsemen crouch" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-horsemen-graffiti.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-horsemen-graffiti.png" alt="Horsemen graffiti" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-horsemen-stance.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-horsemen-stance.png" alt="Horsemen stance" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-rules-back.png" data-caption="HORSEMEN TEE — back print">
-          <img src="assets/gallery-rules-back.png" alt="Rules back print" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-stairs-back.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-stairs-back.png" alt="Stairs back" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-stairs-front.png" data-caption="HORSEMEN TEE">
-          <img src="assets/gallery-stairs-front.png" alt="Stairs front" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
+    <section class="section section--border text-center">
+      <div class="container">
+        <p class="section__subtitle" style="margin-bottom: 1.25rem;">Ready to order?</p>
+        <div class="social-row">
+          <a href="index.html#shop" class="btn btn--outline">Shop</a>
+          <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Facebook</a>
+        </div>
       </div>
+    </section>
+  </main>
 
-      <h2 class="font-display text-3xl tracking-widest mb-2">BUBBLEGUM TEE</h2>
-      <p class="text-white/60 text-sm mb-6">₱649</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16">
-        <button type="button" class="gallery-item aspect-square border border-white/10 overflow-hidden rounded-lg" data-src="assets/bubblegum-mockup.png" data-caption="BUBBLEGUM TEE — mockup">
-          <img src="assets/bubblegum-mockup.png" alt="Bubblegum Tee mockup" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum.png" data-caption="BUBBLEGUM TEE — lifestyle">
-          <img src="assets/gallery-bubblegum.png" alt="Bubblegum lifestyle" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-night.png" data-caption="BUBBLEGUM TEE — lifestyle">
-          <img src="assets/gallery-bubblegum-night.png" alt="Bubblegum tee urban night" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-van.png" data-caption="BUBBLEGUM TEE — lifestyle">
-          <img src="assets/gallery-bubblegum-van.png" alt="Bubblegum tee with van" class="w-full h-full img-cover hover:scale-105 transition duration-300" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-selfie.png" data-caption="BUBBLEGUM TEE — lifestyle">
-          <img src="assets/gallery-bubblegum-selfie.png" alt="Bubblegum tee selfie" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-cap-front.png" data-caption="BUBBLEGUM TEE — lifestyle">
-          <img src="assets/gallery-bubblegum-cap-front.png" alt="Bubblegum tee with cap" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-street-full.png" data-caption="BUBBLEGUM TEE — lifestyle">
-          <img src="assets/gallery-bubblegum-street-full.png" alt="Bubblegum tee street style" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-beach-back.png" data-caption="BUBBLEGUM TEE — back print">
-          <img src="assets/gallery-bubblegum-beach-back.png" alt="Bubblegum tee beach back" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-night-street.png" data-caption="BUBBLEGUM TEE — back print">
-          <img src="assets/gallery-bubblegum-night-street.png" alt="Bubblegum tee night street" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
-        <button type="button" class="gallery-item aspect-[3/4] border border-white/10 overflow-hidden rounded-lg" data-src="assets/gallery-bubblegum-beach-hat.png" data-caption="BUBBLEGUM TEE — back print">
-          <img src="assets/gallery-bubblegum-beach-hat.png" alt="Bubblegum tee beach hat" class="w-full h-full img-cover hover:scale-105 transition duration-300" loading="lazy" />
-        </button>
-      </div>
-
-      <h2 class="font-display text-3xl tracking-widest mb-6">SIZE GUIDE</h2>
-      <button type="button" class="gallery-item block w-full max-w-2xl mx-auto border border-white/10 overflow-hidden rounded-lg" data-src="assets/size-guide.png" data-caption="Official Size Guide">
-        <img src="assets/size-guide.png" alt="Size guide" class="w-full h-auto" />
-      </button>
-    </div>
-  </section>
-
-  <section class="py-12 border-t border-white/10 text-center px-4">
-    <p class="section__subtitle" style="margin-bottom: 1.25rem;">Ready to order?</p>
-    <div class="social-row">
-      <a href="index.html#shop" class="btn btn--outline">Shop</a>
-      <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Facebook</a>
-    </div>
-  </section>
-
-  <footer class="py-8 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-      <span class="font-display tracking-widest">UNDYING AMBITION</span>
-      <div class="flex gap-6">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="section__title" style="font-size: 1.25rem; margin: 0;">Undying Ambition</span>
+      <div class="footer-links">
         <a data-social="facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
         <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="index.html">Home</a>
       </div>
-      <span class="text-white/50 text-sm">© All rights reserved 2026</span>
+      <span class="footer-copy">© All rights reserved 2026</span>
     </div>
   </footer>
 
-  <div id="lightbox" class="fixed inset-0 z-[60] items-center justify-center bg-black/95 p-4" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button type="button" id="lightbox-close" class="absolute top-4 right-4 text-white/80 hover:text-white text-3xl leading-none" aria-label="Close">&times;</button>
-    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] object-contain" />
-    <p id="lightbox-caption" class="absolute bottom-6 left-0 right-0 text-center text-white/80 tracking-wider"></p>
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button type="button" id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="" />
+    <p id="lightbox-caption"></p>
   </div>
 
   <script src="script.js"></script>

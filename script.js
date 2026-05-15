@@ -77,6 +77,7 @@
       backdrop: document.getElementById('modal-backdrop'),
       productLabel: document.getElementById('order-product-label'),
       sizeSelect: document.getElementById('order-size'),
+      quantityInput: document.getElementById('order-quantity'),
       nameInput: document.getElementById('order-name'),
       addressInput: document.getElementById('order-address'),
       errorBox: document.getElementById('order-error'),
@@ -143,12 +144,13 @@
    * Builds Messenger URL with pre-filled order message.
    * Format: https://m.me/USERNAME?text=encodedMessage
    */
-  function buildMessengerUrl(size, name, address) {
+  function buildMessengerUrl(size, quantity, name, address) {
     var lines = [
       'Hello, I would like to place an order.',
       '',
       'Product: ' + currentProduct,
       'Size: ' + size,
+      'Quantity: ' + quantity,
       'Name: ' + name,
       'Address: ' + address
     ];
@@ -160,12 +162,18 @@
   function validateOrderForm() {
     var els = getModalElements();
     var size = els.sizeSelect ? els.sizeSelect.value.trim() : '';
+    var quantity = els.quantityInput ? parseInt(els.quantityInput.value, 10) : 0;
     var name = els.nameInput ? els.nameInput.value.trim() : '';
     var address = els.addressInput ? els.addressInput.value.trim() : '';
 
     if (!size) {
       showError('Please select a size.');
       if (els.sizeSelect) els.sizeSelect.focus();
+      return null;
+    }
+    if (!quantity || quantity < 1) {
+      showError('Please enter a valid quantity (minimum 1).');
+      if (els.quantityInput) els.quantityInput.focus();
       return null;
     }
     if (!name) {
@@ -179,7 +187,7 @@
       return null;
     }
 
-    return { size: size, name: name, address: address };
+    return { size: size, quantity: String(quantity), name: name, address: address };
   }
 
   function handlePlaceOrder(event) {
@@ -189,7 +197,7 @@
     var data = validateOrderForm();
     if (!data) return;
 
-    var messengerUrl = buildMessengerUrl(data.size, data.name, data.address);
+    var messengerUrl = buildMessengerUrl(data.size, data.quantity, data.name, data.address);
     window.location.href = messengerUrl;
   }
 
@@ -264,10 +272,27 @@
   // ---------------------------------------------------------------------------
   // Boot
   // ---------------------------------------------------------------------------
+  function initStickyHeader() {
+    var header = document.getElementById('site-header');
+    if (!header) return;
+
+    function onScroll() {
+      if (window.scrollY > 8) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   function init() {
     initHeroVideo();
     applySocialLinks();
     initMobileMenu();
+    initStickyHeader();
     initOrderFlow();
     initGalleryLightbox();
   }
