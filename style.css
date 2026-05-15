@@ -695,6 +695,12 @@ textarea {
   display: block;
 }
 
+.form-error.is-success {
+  color: #86efac;
+  background: rgba(134, 239, 172, 0.12);
+  border-color: rgba(134, 239, 172, 0.35);
+}
+
 .modal__actions {
   display: flex;
   flex-direction: column-reverse;

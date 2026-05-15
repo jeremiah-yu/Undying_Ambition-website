@@ -96,18 +96,105 @@
     });
   }
 
-  function showError(message) {
+  function showNotice(message, type) {
     var els = getModalElements();
     if (!els.errorBox) return;
     els.errorBox.textContent = message;
     els.errorBox.classList.add('is-visible');
+    els.errorBox.classList.toggle('is-success', type === 'success');
+  }
+
+  function showError(message) {
+    showNotice(message, 'error');
+  }
+
+  function showSuccess(message) {
+    showNotice(message, 'success');
   }
 
   function hideError() {
     var els = getModalElements();
     if (!els.errorBox) return;
     els.errorBox.textContent = '';
-    els.errorBox.classList.remove('is-visible');
+    els.errorBox.classList.remove('is-visible', 'is-success');
+  }
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function isMobile() {
+    return isIOS() || /Android/i.test(navigator.userAgent);
+  }
+
+  /**
+   * Plain-text order message for Messenger.
+   */
+  function buildOrderMessage(data) {
+    return [
+      'Hello, I would like to place an order.',
+      '',
+      'Product: ' + currentProduct,
+      'Size: ' + data.size,
+      'Quantity: ' + data.quantity,
+      'Name: ' + data.name,
+      'Address: ' + data.address,
+    ].join('\n');
+  }
+
+  /**
+   * Messenger URLs — iOS often ignores ?text= on m.me; use chat link + clipboard paste.
+   */
+  function getMessengerUrls(message) {
+    var pageId = CONFIG.facebookMessengerUsername;
+    var encoded = encodeURIComponent(message);
+    return {
+      withText: 'https://m.me/' + pageId + '?text=' + encoded,
+      chat: 'https://m.me/' + pageId,
+      messagesThread: 'https://www.facebook.com/messages/t/' + pageId,
+    };
+  }
+
+  /**
+   * Copy order text (required for reliable iOS Messenger flow).
+   */
+  function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, text.length);
+      try {
+        var ok = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        if (ok) resolve();
+        else reject(new Error('copy failed'));
+      } catch (err) {
+        document.body.removeChild(textarea);
+        reject(err);
+      }
+    });
+  }
+
+  /**
+   * Open Messenger using a real link click (works better on iOS than location.href alone).
+   */
+  function openMessenger(url) {
+    var link = document.createElement('a');
+    link.href = url;
+    link.rel = 'noopener noreferrer';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   function openOrderModal(productName) {
@@ -138,25 +225,6 @@
     els.modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     hideError();
-  }
-
-  /**
-   * Builds Messenger URL with pre-filled order message.
-   * Format: https://m.me/USERNAME?text=encodedMessage
-   */
-  function buildMessengerUrl(size, quantity, name, address) {
-    var lines = [
-      'Hello, I would like to place an order.',
-      '',
-      'Product: ' + currentProduct,
-      'Size: ' + size,
-      'Quantity: ' + quantity,
-      'Name: ' + name,
-      'Address: ' + address
-    ];
-    var message = lines.join('\n');
-    var username = CONFIG.facebookMessengerUsername;
-    return 'https://m.me/' + username + '?text=' + encodeURIComponent(message);
   }
 
   function validateOrderForm() {
@@ -197,8 +265,38 @@
     var data = validateOrderForm();
     if (!data) return;
 
-    var messengerUrl = buildMessengerUrl(data.size, data.quantity, data.name, data.address);
-    window.location.href = messengerUrl;
+    var message = buildOrderMessage(data);
+    var urls = getMessengerUrls(message);
+    var useClipboardFlow = isMobile();
+
+    function launchMessenger() {
+      if (useClipboardFlow) {
+        // iOS/Android: m.me without ?text= opens Messenger reliably; user pastes copied order
+        openMessenger(urls.chat);
+        setTimeout(function () {
+          window.location.assign(urls.chat);
+        }, 250);
+      } else {
+        window.location.assign(urls.withText);
+      }
+    }
+
+    if (useClipboardFlow) {
+      copyToClipboard(message)
+        .then(function () {
+          showSuccess(
+            'Order copied! Opening Messenger — tap the message box, paste, then tap Send.'
+          );
+          setTimeout(launchMessenger, 350);
+        })
+        .catch(function () {
+          showSuccess('Opening Messenger — please type or paste your order details.');
+          setTimeout(launchMessenger, 200);
+        });
+    } else {
+      copyToClipboard(message).catch(function () { /* optional on desktop */ });
+      launchMessenger();
+    }
   }
 
   function initOrderFlow() {
