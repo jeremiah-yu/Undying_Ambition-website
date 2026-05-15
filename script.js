@@ -119,33 +119,18 @@
     els.errorBox.classList.remove('is-visible', 'is-success');
   }
 
-  function isIOS() {
-    return /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
   }
 
   /**
-   * Plain-text order message (readable preview + clipboard).
-   */
-  function buildOrderMessage(data) {
-    return [
-      'Hello, I would like to place an order.',
-      '',
-      'Product: ' + currentProduct,
-      'Size: ' + data.size,
-      'Quantity: ' + data.quantity,
-      'Name: ' + data.name,
-      'Address: ' + data.address,
-    ].join('\n');
-  }
-
-  /**
-   * Single-line text for m.me ?text= (newlines break on some iOS builds).
+   * Single-line order text for m.me ?text= (works on mobile + desktop).
    */
   function buildMessengerLinkText(data) {
     var address = data.address.replace(/\s+/g, ' ').trim();
     return [
-      'Order: ' + currentProduct,
+      'Hello, I would like to place an order.',
+      'Product: ' + currentProduct,
       'Size: ' + data.size,
       'Qty: ' + data.quantity,
       'Name: ' + data.name,
@@ -153,87 +138,8 @@
     ].join(' | ');
   }
 
-  function copyToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text);
-    }
-    return new Promise(function (resolve, reject) {
-      var textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.setAttribute('readonly', '');
-      textarea.style.position = 'fixed';
-      textarea.style.left = '-9999px';
-      document.body.appendChild(textarea);
-      textarea.select();
-      textarea.setSelectionRange(0, text.length);
-      try {
-        var ok = document.execCommand('copy');
-        document.body.removeChild(textarea);
-        if (ok) resolve();
-        else reject(new Error('copy failed'));
-      } catch (err) {
-        document.body.removeChild(textarea);
-        reject(err);
-      }
-    });
-  }
-
-  function getMessengerChatUrl() {
-    return 'https://m.me/' + CONFIG.facebookMessengerUsername;
-  }
-
-  function resetOrderModalView() {
-    var formWrap = document.getElementById('order-form-wrap');
-    var sendStep = document.getElementById('order-send-step');
-    if (formWrap) formWrap.hidden = false;
-    if (sendStep) sendStep.hidden = true;
-    hideSendStepNotice();
-  }
-
-  function showSendStepNotice(message, isSuccess) {
-    var notice = document.getElementById('order-send-notice');
-    if (!notice) return;
-    notice.textContent = message;
-    notice.classList.add('is-visible');
-    notice.classList.toggle('is-success', !!isSuccess);
-  }
-
-  function hideSendStepNotice() {
-    var notice = document.getElementById('order-send-notice');
-    if (!notice) return;
-    notice.textContent = '';
-    notice.classList.remove('is-visible', 'is-success');
-  }
-
-  function showIOSSendStep(message) {
-    var formWrap = document.getElementById('order-form-wrap');
-    var sendStep = document.getElementById('order-send-step');
-    var preview = document.getElementById('order-message-preview');
-    var openBtn = document.getElementById('messenger-open-btn');
-    if (!formWrap || !sendStep || !preview || !openBtn) {
-      window.location.assign(getMessengerChatUrl());
-      return;
-    }
-
-    preview.value = message;
-    openBtn.href = getMessengerChatUrl();
-    formWrap.hidden = true;
-    sendStep.hidden = false;
-    hideError();
-    hideSendStepNotice();
-
-    copyToClipboard(message).then(function () {
-      showSendStepNotice('Order copied — paste in Messenger before sending.', true);
-    }).catch(function () {
-      showSendStepNotice('Tap the message below, select all, then Copy before opening Messenger.', false);
-    });
-
-    preview.focus();
-    preview.select();
-  }
-
   /**
-   * Business Page m.me link with pre-filled message (supported by Meta for Pages).
+   * m.me URL with pre-filled message (Meta business Page).
    */
   function getMessengerUrlWithText(message) {
     var pageId = CONFIG.facebookMessengerUsername;
@@ -241,23 +147,34 @@
   }
 
   /**
-   * Opens Messenger with pre-filled text. Form GET submit keeps the iOS user-gesture
-   * chain so ?text= is applied when the Messenger app opens.
+   * Android: open Messenger app directly with pre-filled text.
+   */
+  function getAndroidMessengerIntentUrl(message) {
+    var pageId = CONFIG.facebookMessengerUsername;
+    var encoded = encodeURIComponent(message);
+    return (
+      'intent://m.me/' + pageId + '?text=' + encoded +
+      '#Intent;scheme=https;package=com.facebook.orca;action=android.intent.action.VIEW;end'
+    );
+  }
+
+  /**
+   * Redirect to Messenger with order text (same flow for iOS, Android, desktop).
    */
   function openMessengerWithPrefill(message) {
-    var sendForm = document.getElementById('messenger-send-form');
-    var textInput = document.getElementById('messenger-prefill-text');
-    var pageId = CONFIG.facebookMessengerUsername;
-    var baseAction = 'https://m.me/' + pageId;
+    var httpsUrl = getMessengerUrlWithText(message);
+    var url = isAndroid() ? getAndroidMessengerIntentUrl(message) : httpsUrl;
+    var redirectLink = document.getElementById('messenger-redirect-link');
 
-    if (sendForm && textInput) {
-      sendForm.action = baseAction;
-      textInput.value = message;
-      sendForm.submit();
+    closeOrderModal();
+
+    if (redirectLink) {
+      redirectLink.href = url;
+      redirectLink.click();
       return;
     }
 
-    window.location.assign(getMessengerUrlWithText(message));
+    window.location.replace(httpsUrl);
   }
 
   function openOrderModal(productName) {
@@ -269,7 +186,6 @@
       els.productLabel.textContent = currentProduct;
     }
     if (els.form) els.form.reset();
-    resetOrderModalView();
     hideError();
     els.modal.classList.add('is-open');
     els.modal.setAttribute('aria-hidden', 'false');
@@ -288,7 +204,6 @@
     els.modal.classList.remove('is-open');
     els.modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    resetOrderModalView();
     hideError();
   }
 
@@ -330,26 +245,11 @@
     var data = validateOrderForm();
     if (!data) return;
 
-    var message = buildOrderMessage(data);
-
-    // iOS Messenger drops ?text= on send — copy + paste is the reliable path
-    if (isIOS()) {
-      showIOSSendStep(message);
-      return;
-    }
-
     openMessengerWithPrefill(buildMessengerLinkText(data));
-  }
-
-  function initMessengerForm() {
-    var sendForm = document.getElementById('messenger-send-form');
-    if (!sendForm) return;
-    sendForm.action = 'https://m.me/' + CONFIG.facebookMessengerUsername;
   }
 
   function initOrderFlow() {
     var els = getModalElements();
-    initMessengerForm();
     populateSizeOptions(els.sizeSelect);
 
     document.addEventListener('click', function (e) {
@@ -366,29 +266,6 @@
     var closeBtn = document.getElementById('close-modal-btn');
     if (closeBtn) closeBtn.addEventListener('click', closeOrderModal);
     if (els.backdrop) els.backdrop.addEventListener('click', closeOrderModal);
-
-    var sendBackBtn = document.getElementById('order-send-back-btn');
-    if (sendBackBtn) {
-      sendBackBtn.addEventListener('click', function () {
-        resetOrderModalView();
-        hideError();
-      });
-    }
-
-    var copyAgainBtn = document.getElementById('order-copy-again-btn');
-    if (copyAgainBtn) {
-      copyAgainBtn.addEventListener('click', function () {
-        var preview = document.getElementById('order-message-preview');
-        if (!preview) return;
-        copyToClipboard(preview.value).then(function () {
-          showSendStepNotice('Copied again.', true);
-        }).catch(function () {
-          preview.focus();
-          preview.select();
-          showSendStepNotice('Select the text above, then tap Copy.', false);
-        });
-      });
-    }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && els.modal && els.modal.classList.contains('is-open')) {
