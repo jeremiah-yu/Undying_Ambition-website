@@ -124,12 +124,8 @@
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   }
 
-  function isMobile() {
-    return isIOS() || /Android/i.test(navigator.userAgent);
-  }
-
   /**
-   * Plain-text order message for Messenger.
+   * Plain-text order message (readable preview + clipboard).
    */
   function buildOrderMessage(data) {
     return [
@@ -144,21 +140,19 @@
   }
 
   /**
-   * Messenger URLs — iOS often ignores ?text= on m.me; use chat link + clipboard paste.
+   * Single-line text for m.me ?text= (newlines break on some iOS builds).
    */
-  function getMessengerUrls(message) {
-    var pageId = CONFIG.facebookMessengerUsername;
-    var encoded = encodeURIComponent(message);
-    return {
-      withText: 'https://m.me/' + pageId + '?text=' + encoded,
-      chat: 'https://m.me/' + pageId,
-      messagesThread: 'https://www.facebook.com/messages/t/' + pageId,
-    };
+  function buildMessengerLinkText(data) {
+    var address = data.address.replace(/\s+/g, ' ').trim();
+    return [
+      'Order: ' + currentProduct,
+      'Size: ' + data.size,
+      'Qty: ' + data.quantity,
+      'Name: ' + data.name,
+      'Address: ' + address,
+    ].join(' | ');
   }
 
-  /**
-   * Copy order text (required for reliable iOS Messenger flow).
-   */
   function copyToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(text);
@@ -184,17 +178,86 @@
     });
   }
 
+  function getMessengerChatUrl() {
+    return 'https://m.me/' + CONFIG.facebookMessengerUsername;
+  }
+
+  function resetOrderModalView() {
+    var formWrap = document.getElementById('order-form-wrap');
+    var sendStep = document.getElementById('order-send-step');
+    if (formWrap) formWrap.hidden = false;
+    if (sendStep) sendStep.hidden = true;
+    hideSendStepNotice();
+  }
+
+  function showSendStepNotice(message, isSuccess) {
+    var notice = document.getElementById('order-send-notice');
+    if (!notice) return;
+    notice.textContent = message;
+    notice.classList.add('is-visible');
+    notice.classList.toggle('is-success', !!isSuccess);
+  }
+
+  function hideSendStepNotice() {
+    var notice = document.getElementById('order-send-notice');
+    if (!notice) return;
+    notice.textContent = '';
+    notice.classList.remove('is-visible', 'is-success');
+  }
+
+  function showIOSSendStep(message) {
+    var formWrap = document.getElementById('order-form-wrap');
+    var sendStep = document.getElementById('order-send-step');
+    var preview = document.getElementById('order-message-preview');
+    var openBtn = document.getElementById('messenger-open-btn');
+    if (!formWrap || !sendStep || !preview || !openBtn) {
+      window.location.assign(getMessengerChatUrl());
+      return;
+    }
+
+    preview.value = message;
+    openBtn.href = getMessengerChatUrl();
+    formWrap.hidden = true;
+    sendStep.hidden = false;
+    hideError();
+    hideSendStepNotice();
+
+    copyToClipboard(message).then(function () {
+      showSendStepNotice('Order copied — paste in Messenger before sending.', true);
+    }).catch(function () {
+      showSendStepNotice('Tap the message below, select all, then Copy before opening Messenger.', false);
+    });
+
+    preview.focus();
+    preview.select();
+  }
+
   /**
-   * Open Messenger using a real link click (works better on iOS than location.href alone).
+   * Business Page m.me link with pre-filled message (supported by Meta for Pages).
    */
-  function openMessenger(url) {
-    var link = document.createElement('a');
-    link.href = url;
-    link.rel = 'noopener noreferrer';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  function getMessengerUrlWithText(message) {
+    var pageId = CONFIG.facebookMessengerUsername;
+    return 'https://m.me/' + pageId + '?text=' + encodeURIComponent(message);
+  }
+
+  /**
+   * Opens Messenger with pre-filled text. Form GET submit keeps the iOS user-gesture
+   * chain so ?text= is applied when the Messenger app opens.
+   */
+  function openMessengerWithPrefill(message) {
+    var sendForm = document.getElementById('messenger-send-form');
+    var textInput = document.getElementById('messenger-prefill-text');
+    var pageId = CONFIG.facebookMessengerUsername;
+    var baseAction = 'https://m.me/' + pageId;
+
+    if (sendForm && textInput) {
+      sendForm.action = baseAction;
+      textInput.value = message;
+      sendForm.submit();
+      return;
+    }
+
+    window.location.assign(getMessengerUrlWithText(message));
   }
 
   function openOrderModal(productName) {
@@ -206,6 +269,7 @@
       els.productLabel.textContent = currentProduct;
     }
     if (els.form) els.form.reset();
+    resetOrderModalView();
     hideError();
     els.modal.classList.add('is-open');
     els.modal.setAttribute('aria-hidden', 'false');
@@ -224,6 +288,7 @@
     els.modal.classList.remove('is-open');
     els.modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    resetOrderModalView();
     hideError();
   }
 
@@ -266,41 +331,25 @@
     if (!data) return;
 
     var message = buildOrderMessage(data);
-    var urls = getMessengerUrls(message);
-    var useClipboardFlow = isMobile();
 
-    function launchMessenger() {
-      if (useClipboardFlow) {
-        // iOS/Android: m.me without ?text= opens Messenger reliably; user pastes copied order
-        openMessenger(urls.chat);
-        setTimeout(function () {
-          window.location.assign(urls.chat);
-        }, 250);
-      } else {
-        window.location.assign(urls.withText);
-      }
+    // iOS Messenger drops ?text= on send — copy + paste is the reliable path
+    if (isIOS()) {
+      showIOSSendStep(message);
+      return;
     }
 
-    if (useClipboardFlow) {
-      copyToClipboard(message)
-        .then(function () {
-          showSuccess(
-            'Order copied! Opening Messenger — tap the message box, paste, then tap Send.'
-          );
-          setTimeout(launchMessenger, 350);
-        })
-        .catch(function () {
-          showSuccess('Opening Messenger — please type or paste your order details.');
-          setTimeout(launchMessenger, 200);
-        });
-    } else {
-      copyToClipboard(message).catch(function () { /* optional on desktop */ });
-      launchMessenger();
-    }
+    openMessengerWithPrefill(buildMessengerLinkText(data));
+  }
+
+  function initMessengerForm() {
+    var sendForm = document.getElementById('messenger-send-form');
+    if (!sendForm) return;
+    sendForm.action = 'https://m.me/' + CONFIG.facebookMessengerUsername;
   }
 
   function initOrderFlow() {
     var els = getModalElements();
+    initMessengerForm();
     populateSizeOptions(els.sizeSelect);
 
     document.addEventListener('click', function (e) {
@@ -317,6 +366,29 @@
     var closeBtn = document.getElementById('close-modal-btn');
     if (closeBtn) closeBtn.addEventListener('click', closeOrderModal);
     if (els.backdrop) els.backdrop.addEventListener('click', closeOrderModal);
+
+    var sendBackBtn = document.getElementById('order-send-back-btn');
+    if (sendBackBtn) {
+      sendBackBtn.addEventListener('click', function () {
+        resetOrderModalView();
+        hideError();
+      });
+    }
+
+    var copyAgainBtn = document.getElementById('order-copy-again-btn');
+    if (copyAgainBtn) {
+      copyAgainBtn.addEventListener('click', function () {
+        var preview = document.getElementById('order-message-preview');
+        if (!preview) return;
+        copyToClipboard(preview.value).then(function () {
+          showSendStepNotice('Copied again.', true);
+        }).catch(function () {
+          preview.focus();
+          preview.select();
+          showSendStepNotice('Select the text above, then tap Copy.', false);
+        });
+      });
+    }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && els.modal && els.modal.classList.contains('is-open')) {
