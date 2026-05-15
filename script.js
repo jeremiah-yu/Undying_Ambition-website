@@ -119,23 +119,81 @@
     els.errorBox.classList.remove('is-visible', 'is-success');
   }
 
+  function isIOS() {
+    return /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
   function isAndroid() {
     return /Android/i.test(navigator.userAgent);
   }
 
+  function normalizeField(value) {
+    return String(value).replace(/\s+/g, ' ').trim();
+  }
+
   /**
-   * Single-line order text for m.me ?text= (works on mobile + desktop).
+   * Multiline order text — use for iOS clipboard (paste sends reliably).
    */
-  function buildMessengerLinkText(data) {
-    var address = data.address.replace(/\s+/g, ' ').trim();
+  function buildOrderMessage(data) {
     return [
-      'Hello, I would like to place an order.',
+      'Hi! I would like to order:',
       'Product: ' + currentProduct,
       'Size: ' + data.size,
       'Qty: ' + data.quantity,
-      'Name: ' + data.name,
-      'Address: ' + address,
-    ].join(' | ');
+      'Name: ' + normalizeField(data.name),
+      'Address: ' + normalizeField(data.address),
+    ].join('\n');
+  }
+
+  /**
+   * Single-line text for m.me ?text= on Android / desktop only.
+   */
+  function buildMessengerLinkText(data) {
+    return buildOrderMessage(data).replace(/\n/g, ', ');
+  }
+
+  function copyToClipboardSync(text) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, text.length);
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      /* clipboard blocked */
+    }
+    document.body.removeChild(textarea);
+  }
+
+  function getMessengerChatUrl() {
+    return 'https://m.me/' + CONFIG.facebookMessengerUsername;
+  }
+
+  function resetOrderViews() {
+    var formWrap = document.getElementById('order-form-wrap');
+    var iosStep = document.getElementById('order-ios-step');
+    if (formWrap) formWrap.hidden = false;
+    if (iosStep) iosStep.hidden = true;
+  }
+
+  function showIOSOrderStep() {
+    var formWrap = document.getElementById('order-form-wrap');
+    var iosStep = document.getElementById('order-ios-step');
+    var openBtn = document.getElementById('messenger-ios-open');
+    if (!formWrap || !iosStep || !openBtn) return;
+
+    openBtn.href = getMessengerChatUrl();
+    formWrap.hidden = true;
+    iosStep.hidden = false;
+    showSuccess('Order copied. Paste in Messenger to send.');
   }
 
   /**
@@ -186,6 +244,7 @@
       els.productLabel.textContent = currentProduct;
     }
     if (els.form) els.form.reset();
+    resetOrderViews();
     hideError();
     els.modal.classList.add('is-open');
     els.modal.setAttribute('aria-hidden', 'false');
@@ -204,6 +263,7 @@
     els.modal.classList.remove('is-open');
     els.modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    resetOrderViews();
     hideError();
   }
 
@@ -245,6 +305,14 @@
     var data = validateOrderForm();
     if (!data) return;
 
+    // iOS blocks sending messages prefilled via m.me ?text= ("Couldn't send")
+    if (isIOS()) {
+      var iosMessage = buildOrderMessage(data);
+      copyToClipboardSync(iosMessage);
+      showIOSOrderStep();
+      return;
+    }
+
     openMessengerWithPrefill(buildMessengerLinkText(data));
   }
 
@@ -266,6 +334,14 @@
     var closeBtn = document.getElementById('close-modal-btn');
     if (closeBtn) closeBtn.addEventListener('click', closeOrderModal);
     if (els.backdrop) els.backdrop.addEventListener('click', closeOrderModal);
+
+    var iosBackBtn = document.getElementById('order-ios-back');
+    if (iosBackBtn) {
+      iosBackBtn.addEventListener('click', function () {
+        resetOrderViews();
+        hideError();
+      });
+    }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && els.modal && els.modal.classList.contains('is-open')) {

@@ -162,6 +162,7 @@
       <h2 id="order-modal-title" class="modal__title">Place Order</h2>
       <p id="order-product-label" class="modal__product">Product</p>
       <p id="order-error" class="form-error" role="alert"></p>
+      <div id="order-form-wrap">
       <form id="order-form" novalidate>
         <div class="form-group">
           <label for="order-size">Size</label>
@@ -186,6 +187,17 @@
           <button type="submit" class="btn btn--primary">Place Order</button>
         </div>
       </form>
+      </div>
+
+      <div id="order-ios-step" class="order-ios-step" hidden>
+        <p class="order-ios-step__badge">Order copied</p>
+        <p class="order-ios-step__hint">
+          iPhone cannot send auto-filled messages. Open Messenger, tap the message box, tap <strong>Paste</strong>, then <strong>Send</strong>.
+        </p>
+        <a id="messenger-ios-open" class="btn btn--primary" href="https://m.me/61584714136561" rel="noopener noreferrer">Open Messenger</a>
+        <button type="button" id="order-ios-back" class="btn btn--ghost">Edit order</button>
+      </div>
+
       <a id="messenger-redirect-link" class="visually-hidden" href="#" rel="noopener noreferrer" aria-hidden="true">Messenger</a>
     </div>
   </div>
