@@ -11,6 +11,8 @@
   // ---------------------------------------------------------------------------
   var CONFIG = {
     facebookPageUrl: 'https://www.facebook.com/profile.php?id=61584714136561',
+    /** Mobile Facebook Page — opens reliably in iPhone Safari / FB app */
+    facebookMobilePageUrl: 'https://m.facebook.com/profile.php?id=61584714136561',
     facebookMessengerUsername: '61584714136561',
     instagramUrl: 'https://www.instagram.com/u.ambition_',
     sizes: ['S', 'M', 'L', 'XL', '2XL'],
@@ -180,16 +182,12 @@
     document.body.removeChild(textarea);
   }
 
-  /** iOS: copy order, then open Facebook Page (user taps Message and pastes). */
+  /** iOS: copy order, then go to Facebook Page (tap Message → Paste → Send). */
   function openFacebookPageForIOSOrder(message) {
     copyToClipboardSync(message);
-    showSuccess(
-      'Order copied. Opening Facebook — tap Message, then Paste and Send.'
-    );
-    setTimeout(function () {
-      closeOrderModal();
-      window.open(CONFIG.facebookPageUrl, '_blank');
-    }, 1500);
+    closeOrderModal();
+    // Must run in the same tap — no setTimeout or iOS blocks navigation.
+    window.location.assign(CONFIG.facebookMobilePageUrl);
   }
 
   /**
