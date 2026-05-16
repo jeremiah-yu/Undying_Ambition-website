@@ -119,11 +119,32 @@
     els.errorBox.classList.remove('is-visible', 'is-success');
   }
 
+  function isIOS() {
+    return /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
   function isAndroid() {
     return /Android/i.test(navigator.userAgent);
   }
 
-  /** Strip symbols/emojis that break Messenger prefill on iOS. */
+  function normalizeField(value) {
+    return String(value).replace(/\s+/g, ' ').trim();
+  }
+
+  /** Full order text for iOS clipboard (paste in Messenger). */
+  function buildOrderMessage(data) {
+    return [
+      'Hi! I would like to order:',
+      'Product: ' + currentProduct,
+      'Size: ' + data.size,
+      'Qty: ' + data.quantity,
+      'Name: ' + normalizeField(data.name),
+      'Address: ' + normalizeField(data.address),
+    ].join('\n');
+  }
+
+  /** Strip symbols that break m.me ?text= prefill on Android/desktop. */
   function clean(value) {
     return String(value).replace(/[^\w\s.,-]/g, '').replace(/\s+/g, ' ').trim();
   }
@@ -137,6 +158,38 @@
       'Name: ' + clean(data.name),
       'Address: ' + clean(data.address),
     ].join('\n');
+  }
+
+  function copyToClipboardSync(text) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, text.length);
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      /* clipboard blocked */
+    }
+    document.body.removeChild(textarea);
+  }
+
+  /** iOS: copy order, then open Facebook Page (user taps Message and pastes). */
+  function openFacebookPageForIOSOrder(message) {
+    copyToClipboardSync(message);
+    showSuccess(
+      'Order copied. Opening Facebook — tap Message, then Paste and Send.'
+    );
+    setTimeout(function () {
+      closeOrderModal();
+      window.open(CONFIG.facebookPageUrl, '_blank');
+    }, 1500);
   }
 
   /**
@@ -235,6 +288,11 @@
 
     var data = validateOrderForm();
     if (!data) return;
+
+    if (isIOS()) {
+      openFacebookPageForIOSOrder(buildOrderMessage(data));
+      return;
+    }
 
     openMessengerWithPrefill(buildMessengerMessage(data));
   }
