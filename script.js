@@ -190,6 +190,18 @@
     window.location.assign(CONFIG.facebookMobilePageUrl);
   }
 
+  function updateIOSOrderInstructions() {
+    var box = document.getElementById('order-ios-instructions');
+    var submitBtn = document.querySelector('#order-form button[type="submit"]');
+    if (!box) return;
+
+    var onIos = isIOS();
+    box.hidden = !onIos;
+    if (submitBtn) {
+      submitBtn.textContent = onIos ? 'Place Order & Open Facebook' : 'Place Order';
+    }
+  }
+
   /**
    * m.me URL with pre-filled message (Meta business Page).
    */
@@ -229,6 +241,7 @@
     }
     if (els.form) els.form.reset();
     hideError();
+    updateIOSOrderInstructions();
     els.modal.classList.add('is-open');
     els.modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -298,6 +311,7 @@
   function initOrderFlow() {
     var els = getModalElements();
     populateSizeOptions(els.sizeSelect);
+    updateIOSOrderInstructions();
 
     document.addEventListener('click', function (e) {
       var orderBtn = e.target.closest('[data-order-product]');
