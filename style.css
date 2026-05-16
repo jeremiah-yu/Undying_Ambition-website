@@ -713,6 +713,35 @@ textarea {
   border-color: rgba(134, 239, 172, 0.35);
 }
 
+.order-warning {
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: var(--radius-sm);
+}
+
+.order-warning__title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+
+.order-warning__text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.order-warning__text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 .order-ios-instructions {
   margin: 0 0 1.25rem;
   padding: 0.85rem 1rem;
